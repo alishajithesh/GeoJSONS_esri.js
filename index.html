@@ -5,21 +5,14 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map</title>
 
-    <!-- Load Calcite components from CDN -->
-    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/2.13.2/calcite.css" />
-    <script type="module" src="https://js.arcgis.com/calcite-components/2.13.2/calcite.esm.js"></script>
-
-    <!-- Load the ArcGIS Maps SDK for JavaScript from CDN -->
+  
     <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.31/"></script>
-
-    <!-- Load Map components from CDN-->
-    <script type="module" src="https://js.arcgis.com/map-components/4.31/arcgis-map-components.esm.js"></script>
 
     <style>
       html,
       body,
-      arcgis-map {
+      #viewDiv {
         padding: 0;
         margin: 0;
         height: 100%;
@@ -28,15 +21,33 @@
     </style>
 
     <script>
-      var esriConfig = {
-        apiKey: "AAPTxy8BH1VEsoebNVZXo8HurJAjpmUTTy7W5MCrEwxmdC95tsQDNhWFjdzJJcUO2VWldYMgo_JHcLCXpLpiVsQqsljT7MhhgU_TtjoAY7dnCwLGA6S4f-uwZviPveRPLTg4pWAJ3CBYCL97PeY_LMnAB97SRONWtNqyeYo1vG_j1f1q52hFLu28Ss6egSq6f_wKXVRCIhgzFk4WSELq6sFuJFKFQEigFuCWM105_kUtf7c.AT1_mDhGBODf"
+     
+      const esriConfig = {
+        apiKey: "AAPTxy8BH1VEsoebNVZXo8HurJAjpmUTTy7W5MCrEwxmdC9gj5pL2Is8nXls7pQcdVY1sIZ18jeQ1hXaV5qXrvcVZjXw5nl7PwSEdx_aMBYDFxLXsGOqhSrXNvBdyNY8Q3k2GKsK9zFBrn4chgv8TN4WCVnNAck3_bu5sjbUlm5snmzokznIXu5ogZEDnTlyi4-LUIye6vH8CNTJ3aia3dbeDSOnzthvDp9QrYDHCfSRVVQ.AT1_GDuDhePS" // Replace with your valid API key
       };
+
+      
+      require(["esri/Map", "esri/views/MapView", "esri/config"], function(Map, MapView, esriConfig) {
+        
+        esriConfig.apiKey = esriConfig.apiKey;
+
+        
+        const map = new Map({
+          basemap: "arcgis/topographic" 
+        });
+
+        // Create the MapView
+        const view = new MapView({
+          map: map,
+          center: [-118.805, 34.027], // Longitude, latitude of Santa Monica Mountains
+          zoom: 13, // Initial zoom level
+          container: "viewDiv" // Reference to the container div
+        });
+      });
     </script>
   </head>
-
   <body>
-    <arcgis-map basemap="arcgis/topographic" center="-118.805, 34.027" zoom="13">
-      <arcgis-zoom position="top-left"></arcgis-zoom>
-    </arcgis-map>
+    <!-- Map container -->
+    <div id="viewDiv"></div>
   </body>
 </html>
