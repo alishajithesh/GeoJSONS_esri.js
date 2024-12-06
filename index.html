@@ -26,8 +26,10 @@
         "esri/Map",
         "esri/views/MapView",
         "esri/config",
-        "esri/layers/GeoJSONLayer"
-      ], function (Map, MapView, esriConfig, GeoJSONLayer) {
+        "esri/layers/GeoJSONLayer",
+        "esri/renderers/SimpleRenderer",
+        "esri/symbols/SimpleMarkerSymbol"
+      ], function (Map, MapView, esriConfig, GeoJSONLayer, SimpleRenderer, SimpleMarkerSymbol) {
         esriConfig.apiKey = esriApiKey;
 
         const map = new Map({
@@ -36,18 +38,41 @@
 
         const url = "https://alishajithesh.github.io/GeoJSONS_esri.js/MegaCities.geojson";
 
+        const renderer = new SimpleRenderer({
+          symbol: new SimpleMarkerSymbol({
+            type: "simple-marker",
+            style: "circle",
+            color: "blue",
+            size: "8px"
+          }),
+          visualVariables: [
+            {
+              type: "size",
+              stops: [
+                { value: 2.5, size: "4px" },
+                { value: 8, size: "40px" }
+              ]
+            }
+          ]
+        });
+
         const geojsonLayer = new GeoJSONLayer({
           url: url,
+          renderer: renderer,
           copyright: "GIS programming course UF"
         });
+
+        map.add(geojsonLayer); // Add the layer to the map
 
         const view = new MapView({
           container: "viewDiv",
           map: map,
           center: [-118.805, 34.027],
-          zoom: 13,
-          layers: [geojsonLayer]
+          zoom: 13
         });
+
+        console.log("GeoJSON Layer:", geojsonLayer);
+        console.log("Map and View initialized");
       });
     </script>
   </head>
