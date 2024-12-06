@@ -34,9 +34,11 @@
           basemap: "streets"
         });
 
+        const url = "https://alishajithesh.github.io/GeoJSONS_esri.js/MegaCities.geojson";
+
         const geojsonLayer = new GeoJSONLayer({
-          url: "MegaCities.geojson",
-          copyright: "Alisha"
+          url: url,
+          copyright: "GIS programming course UF"
         });
 
         const view = new MapView({
