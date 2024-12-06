@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map</title>
+    <title>Mega Cities of the World</title>
 
-  
     <link rel="stylesheet" href="https://js.arcgis.com/4.31/esri/themes/light/main.css" />
     <script src="https://js.arcgis.com/4.31/"></script>
 
@@ -21,33 +20,36 @@
     </style>
 
     <script>
-     
-      const esriConfig = {
-        apiKey: "AAPTxy8BH1VEsoebNVZXo8HurJAjpmUTTy7W5MCrEwxmdC9gj5pL2Is8nXls7pQcdVY1sIZ18jeQ1hXaV5qXrvcVZjXw5nl7PwSEdx_aMBYDFxLXsGOqhSrXNvBdyNY8Q3k2GKsK9zFBrn4chgv8TN4WCVnNAck3_bu5sjbUlm5snmzokznIXu5ogZEDnTlyi4-LUIye6vH8CNTJ3aia3dbeDSOnzthvDp9QrYDHCfSRVVQ.AT1_GDuDhePS" // Replace with your valid API key
-      };
+      const esriApiKey = "AAPTxy8BH1VEsoebNVZXo8HurJAjpmUTTy7W5MCrEwxmdC9gj5pL2Is8nXls7pQcdVY1sIZ18jeQ1hXaV5qXrvcVZjXw5nl7PwSEdx_aMBYDFxLXsGOqhSrXNvBdyNY8Q3k2GKsK9zFBrn4chgv8TN4WCVnNAck3_bu5sjbUlm5snmzokznIXu5ogZEDnTlyi4-LUIye6vH8CNTJ3aia3dbeDSOnzthvDp9QrYDHCfSRVVQ.AT1_GDuDhePS";
 
-      
-      require(["esri/Map", "esri/views/MapView", "esri/config"], function(Map, MapView, esriConfig) {
-        
-        esriConfig.apiKey = esriConfig.apiKey;
+      require([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/config",
+        "esri/layers/GeoJSONLayer"
+      ], function (Map, MapView, esriConfig, GeoJSONLayer) {
+        esriConfig.apiKey = esriApiKey;
 
-        
         const map = new Map({
-          basemap: "streets" 
+          basemap: "streets"
         });
 
-        // Create the MapView
+        const geojsonLayer = new GeoJSONLayer({
+          url: "MegaCities.geojson",
+          copyright: "Alisha"
+        });
+
         const view = new MapView({
+          container: "viewDiv",
           map: map,
-          center: [-118.805, 34.027], // Longitude, latitude of Santa Monica Mountains
-          zoom: 13, // Initial zoom level
-          container: "viewDiv" // Reference to the container div
+          center: [-118.805, 34.027],
+          zoom: 13,
+          layers: [geojsonLayer]
         });
       });
     </script>
   </head>
   <body>
-    <!-- Map container -->
     <div id="viewDiv"></div>
   </body>
 </html>
